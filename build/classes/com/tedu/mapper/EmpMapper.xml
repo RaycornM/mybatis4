@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+  <!-- namespace="本xml对应的接口全路径" -->
+<mapper namespace="com.tedu.mapper.EmpMapper">
+<!-- 本select id 必须和接口中的方法名称相同
+	 传入值和返回值必须和方法的参数与返回值相同 -->
+  <select id="selectAllEmp" resultType="com.tedu.bean.EmpBean">
+    select * from emp
+  </select>
+  <!-- 是一个查询语句 类型中除开基本类型和String 其他都要写全路径-->
+  <!-- 都是进行返回值操作
+  	   resultMap 可以自己定义完成返回类型的映射
+  	   resultType 是直接进行类型的返回，帮助完成直接的字段和属性映射 
+  	   <select id="selectEmpById" parameterType="int"
+  resultMap="testMap">
+  	select id,deparmentid as depid from emp where id = #{id}
+  </select>-->
+  <select id="selectEmpById" parameterType="int"
+  resultMap="testMap">
+  	select * from emp where id = #{id}
+  </select>
+  <!-- type是resultMap要返回的类型 id=""是这个map的唯一主键 -->
+  <resultMap type="com.tedu.bean.EmpBean" id="testMap">
+  <!-- column 是数据库中的字段名称 property 是bean中的属性名称
+  	   <id>标签是标明这个匹配映射是主键
+  	   column和property一样的就会自动匹配 -->
+  	<id column="id" property="id" />
+  	<result column="deparmentid" property="depid" />
+  	<result column="name" property="name" />
+  </resultMap>
+ 
+</mapper>
